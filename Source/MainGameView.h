@@ -22,6 +22,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Snake.hpp"
+#include "MoveTimer.hpp"
 //[/Headers]
 
 
@@ -64,6 +65,7 @@ private:
     enum directionMoving {left, up, right, down};
     int cellPixelSize;
     Snake snake;
+    MoveTimer moveTimer;
 
     //[/UserVariables]
 

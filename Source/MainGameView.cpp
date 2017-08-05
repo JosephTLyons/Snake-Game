@@ -57,6 +57,9 @@ MainGameView::MainGameView ()
     //[Constructor] You can add your own custom stuff here..
 
     addKeyListener (keyListener);
+    
+    moveTimer.setSnake(snake);
+    moveTimer.startMoveTimer();
 
     //[/Constructor]
 }
@@ -108,7 +111,6 @@ void MainGameView::paint (Graphics& g)
     }
 
     // Paint snake
-    
     g.setColour(Colours::green);
     
     for (int i = 0; i < snake.getSnakeCellArray()->size(); i++)
