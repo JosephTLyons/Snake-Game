@@ -35,18 +35,6 @@ MainGameView::MainGameView ()
 
     //[/Constructor_pre]
 
-    addAndMakeVisible (textButton = new TextButton ("new button"));
-    textButton->addListener (this);
-
-    addAndMakeVisible (textButton2 = new TextButton ("new button"));
-    textButton2->addListener (this);
-
-    addAndMakeVisible (textButton3 = new TextButton ("new button"));
-    textButton3->addListener (this);
-
-    addAndMakeVisible (textButton4 = new TextButton ("new button"));
-    textButton4->addListener (this);
-
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -56,8 +44,6 @@ MainGameView::MainGameView ()
 
     //[Constructor] You can add your own custom stuff here..
 
-    addKeyListener (keyListener);
-    
     moveTimer.setSnake(snake);
     moveTimer.startMoveTimer();
 
@@ -69,10 +55,6 @@ MainGameView::~MainGameView()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    textButton = nullptr;
-    textButton2 = nullptr;
-    textButton3 = nullptr;
-    textButton4 = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -112,7 +94,7 @@ void MainGameView::paint (Graphics& g)
 
     // Paint snake
     g.setColour(Colours::green);
-    
+
     for (int i = 0; i < snake.getSnakeCellArray()->size(); i++)
     {
         int x = (*snake.getSnakeCellArray())[i].x - 1;
@@ -129,62 +111,8 @@ void MainGameView::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    textButton->setBounds (272, 360, 40, 24);
-    textButton2->setBounds (304, 328, 40, 24);
-    textButton3->setBounds (336, 360, 40, 24);
-    textButton4->setBounds (304, 392, 40, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
-}
-
-void MainGameView::buttonClicked (Button* buttonThatWasClicked)
-{
-    //[UserbuttonClicked_Pre]
-    //[/UserbuttonClicked_Pre]
-
-    if (buttonThatWasClicked == textButton)
-    {
-        //[UserButtonCode_textButton] -- add your button handler code here..
-
-        snake.setDirectionMoving(left);
-        snake.move();
-        repaint();
-
-        //[/UserButtonCode_textButton]
-    }
-    else if (buttonThatWasClicked == textButton2)
-    {
-        //[UserButtonCode_textButton2] -- add your button handler code here..
-
-        snake.setDirectionMoving(up);
-        snake.move();
-        repaint();
-
-        //[/UserButtonCode_textButton2]
-    }
-    else if (buttonThatWasClicked == textButton3)
-    {
-        //[UserButtonCode_textButton3] -- add your button handler code here..
-
-        snake.setDirectionMoving(right);
-        snake.move();
-        repaint();
-
-        //[/UserButtonCode_textButton3]
-    }
-    else if (buttonThatWasClicked == textButton4)
-    {
-        //[UserButtonCode_textButton4] -- add your button handler code here..
-
-        snake.setDirectionMoving(down);
-        snake.move();
-        repaint();
-
-        //[/UserButtonCode_textButton4]
-    }
-
-    //[UserbuttonClicked_Post]
-    //[/UserbuttonClicked_Post]
 }
 
 bool MainGameView::keyPressed (const KeyPress& key)
@@ -250,18 +178,6 @@ BEGIN_JUCER_METADATA
     <METHOD name="keyPressed (const KeyPress&amp; key)"/>
   </METHODS>
   <BACKGROUND backgroundColour="ffffffff"/>
-  <TEXTBUTTON name="new button" id="4882f1220db3feb6" memberName="textButton"
-              virtualName="" explicitFocusOrder="0" pos="272 360 40 24" buttonText="new button"
-              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
-  <TEXTBUTTON name="new button" id="ce57f112cc041ac0" memberName="textButton2"
-              virtualName="" explicitFocusOrder="0" pos="304 328 40 24" buttonText="new button"
-              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
-  <TEXTBUTTON name="new button" id="a0dee57e89f4893" memberName="textButton3"
-              virtualName="" explicitFocusOrder="0" pos="336 360 40 24" buttonText="new button"
-              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
-  <TEXTBUTTON name="new button" id="7719c1dc995e0c3c" memberName="textButton4"
-              virtualName="" explicitFocusOrder="0" pos="304 392 40 24" buttonText="new button"
-              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

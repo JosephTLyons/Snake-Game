@@ -7,6 +7,7 @@
 //
 
 #include "MoveTimer.hpp"
+#include "MainGameView.h"
 
 MoveTimer::MoveTimer()
 {

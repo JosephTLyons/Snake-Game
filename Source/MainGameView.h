@@ -35,8 +35,7 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class MainGameView  : public Component,
-                      public ButtonListener
+class MainGameView  : public Component
 {
 public:
     //==============================================================================
@@ -52,15 +51,12 @@ public:
 
     void paint (Graphics& g) override;
     void resized() override;
-    void buttonClicked (Button* buttonThatWasClicked) override;
     bool keyPressed (const KeyPress& key) override;
 
 
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-
-    ScopedPointer<KeyListener> keyListener;
 
     enum directionMoving {left, up, right, down};
     int cellPixelSize;
@@ -70,10 +66,6 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<TextButton> textButton;
-    ScopedPointer<TextButton> textButton2;
-    ScopedPointer<TextButton> textButton3;
-    ScopedPointer<TextButton> textButton4;
 
 
     //==============================================================================
