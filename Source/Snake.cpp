@@ -13,9 +13,13 @@ Snake::Snake()
     // Create head
     Point<int> head(11, 11);
     snakeCellArray.add(head);
+    
+    // Start off moving left
+    directionMoving = 0;
 }
 
 Array<Point<int>>* Snake::getSnakeCellArray()
 {
     return &snakeCellArray;
 }
+
