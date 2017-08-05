@@ -75,7 +75,7 @@ void MainGameView::paint (Graphics& g)
 
     //[UserPaint] Add your own custom painting code here..
 
-    // Draw grid
+    // Paint grid
     g.setColour(Colours::black);
 
     for (int i = cellPixelSize; i < getWidth(); i += cellPixelSize)
@@ -87,8 +87,15 @@ void MainGameView::paint (Graphics& g)
     {
         g.drawLine(0, i, getWidth(), i);
     }
-
-    g.fillRect(cellPixelSize * 10, cellPixelSize * 10, cellPixelSize, cellPixelSize);
+    
+    // Paint snake
+    for (int i = 0; i < snake.getSnakeCellArray()->size(); i++)
+    {
+        int x = (*snake.getSnakeCellArray())[i].x - 1;
+        int y = (*snake.getSnakeCellArray())[i].y - 1;
+        
+        g.fillRect(x * cellPixelSize, y * cellPixelSize, cellPixelSize, cellPixelSize);
+    }
 
     //[/UserPaint]
 }
@@ -105,6 +112,12 @@ void MainGameView::resized()
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+
+int MainGameView::getCellPixelSize()
+{
+    return cellPixelSize;
+}
+
 //[/MiscUserCode]
 
 
