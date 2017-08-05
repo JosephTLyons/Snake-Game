@@ -21,7 +21,12 @@ private:
     
 public:
     Snake();
+    
     Array<Point<int>>* getSnakeCellArray();
+    void move();
+    void setDirectionMoving(const int &input);
+    int getDirectionMoving();
+    
 };
 
 #endif /* Snake_hpp */
