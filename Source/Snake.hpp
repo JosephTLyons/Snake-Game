@@ -16,6 +16,8 @@ class Snake
 private:
     Array<Point<int>> snakeCellArray;
     
+    Point<int> newPoint;
+    
     // Left = 0, Up = 1, Right = 2, Down = 3
     int directionMoving;
     
@@ -24,6 +26,7 @@ public:
     
     Array<Point<int>>* getSnakeCellArray();
     void move();
+    void addUnit();
     void setDirectionMoving(const int &input);
     int getDirectionMoving();
     

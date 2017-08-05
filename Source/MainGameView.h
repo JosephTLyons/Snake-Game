@@ -34,7 +34,8 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class MainGameView  : public Component
+class MainGameView  : public Component,
+                      public ButtonListener
 {
 public:
     //==============================================================================
@@ -43,25 +44,34 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    
+
     int getCellPixelSize();
-    
+
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
+    void buttonClicked (Button* buttonThatWasClicked) override;
+    bool keyPressed (const KeyPress& key) override;
 
 
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 
+    ScopedPointer<KeyListener> keyListener;
+
+    enum directionMoving {left, up, right, down};
     int cellPixelSize;
     Snake snake;
 
     //[/UserVariables]
 
     //==============================================================================
+    ScopedPointer<TextButton> textButton;
+    ScopedPointer<TextButton> textButton2;
+    ScopedPointer<TextButton> textButton3;
+    ScopedPointer<TextButton> textButton4;
 
 
     //==============================================================================

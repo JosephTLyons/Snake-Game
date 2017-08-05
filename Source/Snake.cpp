@@ -14,6 +14,16 @@ Snake::Snake()
     Point<int> head(11, 11);
     snakeCellArray.add(head);
     
+    snakeCellArray.add(Point<int> (11, 12));
+    snakeCellArray.add(Point<int> (11, 13));
+    snakeCellArray.add(Point<int> (11, 14));
+    snakeCellArray.add(Point<int> (11, 15));
+    snakeCellArray.add(Point<int> (11, 16));
+    snakeCellArray.add(Point<int> (11, 17));
+    snakeCellArray.add(Point<int> (11, 18));
+    snakeCellArray.add(Point<int> (11, 19));
+    
+    
     // Start off moving left
     directionMoving = 0;
 }
@@ -25,32 +35,39 @@ Array<Point<int>>* Snake::getSnakeCellArray()
 
 void Snake::move()
 {
-    for(int i = 0; i < snakeCellArray.size(); i++)
+    if(directionMoving == 0)
     {
-        // Left
-        if(directionMoving == 0)
-        {
-            snakeCellArray[i].setX(snakeCellArray[i].getX() - 1);
-        }
-        
-        // Up
-        else if(directionMoving == 1)
-        {
-            snakeCellArray[i].setY(snakeCellArray[i].getY() - 1);
-        }
-        
-        // Right
-        else if(directionMoving == 2)
-        {
-            snakeCellArray[i].setX(snakeCellArray[i].getX() + 1);
-        }
-        
-        // Down
-        else
-        {
-            snakeCellArray[i].setY(snakeCellArray[i].getY() + 1);
-        }
+        newPoint.setXY(snakeCellArray[0].getX() - 1, snakeCellArray[0].getY());
+        snakeCellArray.insert(0, newPoint);
     }
+    
+    // Up
+    else if(directionMoving == 1)
+    {
+        newPoint.setXY(snakeCellArray[0].getX(), snakeCellArray[0].getY() - 1);
+        snakeCellArray.insert(0, newPoint);
+    }
+    
+    // Right
+    else if(directionMoving == 2)
+    {
+        newPoint.setXY(snakeCellArray[0].getX() + 1, snakeCellArray[0].getY());
+        snakeCellArray.insert(0, newPoint);
+    }
+    
+    // Down
+    else
+    {
+        newPoint.setXY(snakeCellArray[0].getX(), snakeCellArray[0].getY() + 1);
+        snakeCellArray.insert(0, newPoint);
+    }
+    
+    snakeCellArray.removeLast();
+}
+
+void Snake::addUnit()
+{
+    
 }
 
 void Snake::setDirectionMoving(const int &input)
