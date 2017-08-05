@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="Oz2fJQ" name="Snake" displaySplashScreen="0" reportAppUsage="1"
+              splashScreenColour="Dark" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.yourcompany.Snake" includeBinaryInAppConfig="1"
+              cppLanguageStandard="11" jucerVersion="5.1.1">
+  <MAINGROUP id="fAqOH4" name="Snake">
+    <GROUP id="{65D5B50D-B166-75E1-53E3-3307D0994E96}" name="Source">
+      <FILE id="qXuewC" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="rhp7eB" name="MainGameView.h" compile="0" resource="0" file="Source/MainGameView.h"/>
+      <FILE id="glLjSc" name="MainGameView.cpp" compile="1" resource="0"
+            file="Source/MainGameView.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="Snake"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Snake"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../Programming/Libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../Programming/Libraries/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
