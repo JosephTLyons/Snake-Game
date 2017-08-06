@@ -44,18 +44,30 @@ void Snake::move()
     if(directionMoving == left)
     {
         newPoint.setXY(snakeCellArray[0].getX() - 1, snakeCellArray[0].getY());
+        
+        if (newPoint.x == 0)
+            newPoint.setX(21);
+        
         snakeCellArray.insert(0, newPoint);
     }
     
     else if(directionMoving == up)
     {
         newPoint.setXY(snakeCellArray[0].getX(), snakeCellArray[0].getY() - 1);
+        
+        if (newPoint.y == 0)
+            newPoint.setY(21);
+        
         snakeCellArray.insert(0, newPoint);
     }
     
     else if(directionMoving == right)
     {
         newPoint.setXY(snakeCellArray[0].getX() + 1, snakeCellArray[0].getY());
+        
+        if (newPoint.x == 22)
+            newPoint.setX(1);
+        
         snakeCellArray.insert(0, newPoint);
     }
     
@@ -63,6 +75,10 @@ void Snake::move()
     else
     {
         newPoint.setXY(snakeCellArray[0].getX(), snakeCellArray[0].getY() + 1);
+        
+        if (newPoint.y == 22)
+            newPoint.setY(1);
+        
         snakeCellArray.insert(0, newPoint);
     }
     

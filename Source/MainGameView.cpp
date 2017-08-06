@@ -32,7 +32,8 @@ MainGameView::MainGameView ()
     //[Constructor_pre] You can add your own custom stuff here..
 
     cellPixelSize = 20;
-    refreshTime = 1000 / 2.5;
+    refreshTime = 1000 / 4;
+    gridModeIsOn = false;
 
     //[/Constructor_pre]
 
@@ -83,17 +84,20 @@ void MainGameView::paint (Graphics& g)
 
     //[UserPaint] Add your own custom painting code here..
 
-    // Paint grid
-    g.setColour(Colours::black);
-
-    for (int i = cellPixelSize; i < getWidth(); i += cellPixelSize)
+    if(gridModeIsOn)
     {
-        g.drawLine(i, 0, i, getHeight());
-    }
-
-    for (int i = cellPixelSize; i < getHeight(); i += cellPixelSize)
-    {
-        g.drawLine(0, i, getWidth(), i);
+        // Paint grid
+        g.setColour(Colours::black);
+        
+        for (int i = cellPixelSize; i < getWidth(); i += cellPixelSize)
+        {
+            g.drawLine(i, 0, i, getHeight());
+        }
+        
+        for (int i = cellPixelSize; i < getHeight(); i += cellPixelSize)
+        {
+            g.drawLine(0, i, getWidth(), i);
+        }
     }
 
     // Paint snake

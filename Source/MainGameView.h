@@ -65,6 +65,7 @@ private:
     int cellPixelSize;
     Snake snake;
     float refreshTime;
+    bool gridModeIsOn;
 
     //[/UserVariables]
 
