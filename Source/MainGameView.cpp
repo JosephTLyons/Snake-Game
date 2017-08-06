@@ -142,6 +142,7 @@ bool MainGameView::keyPressed (const KeyPress& key)
         snake.move();
     }
 
+    startTimer(1000 / 3);
     repaint();
 
     return true;  // Return true if your handler uses this key event, or false to allow it to be passed-on.
