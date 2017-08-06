@@ -22,6 +22,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Snake.hpp"
+#include "DirectionMovementEnum.h"
 //[/Headers]
 
 
@@ -59,7 +60,6 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 
-    enum directionMoving {left, up, right, down};
     int cellPixelSize;
     Snake snake;
 

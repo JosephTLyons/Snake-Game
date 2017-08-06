@@ -7,6 +7,7 @@
 //
 
 #include "Snake.hpp"
+#include "DirectionMovementEnum.h"
 
 Snake::Snake()
 {
@@ -25,7 +26,7 @@ Snake::Snake()
     
     
     // Start off moving left
-    directionMoving = 0;
+    directionMoving = left;
 }
 
 Array<Point<int>>* Snake::getSnakeCellArray()
@@ -35,21 +36,19 @@ Array<Point<int>>* Snake::getSnakeCellArray()
 
 void Snake::move()
 {
-    if(directionMoving == 0)
+    if(directionMoving == left)
     {
         newPoint.setXY(snakeCellArray[0].getX() - 1, snakeCellArray[0].getY());
         snakeCellArray.insert(0, newPoint);
     }
     
-    // Up
-    else if(directionMoving == 1)
+    else if(directionMoving == up)
     {
         newPoint.setXY(snakeCellArray[0].getX(), snakeCellArray[0].getY() - 1);
         snakeCellArray.insert(0, newPoint);
     }
     
-    // Right
-    else if(directionMoving == 2)
+    else if(directionMoving == right)
     {
         newPoint.setXY(snakeCellArray[0].getX() + 1, snakeCellArray[0].getY());
         snakeCellArray.insert(0, newPoint);
