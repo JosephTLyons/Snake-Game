@@ -37,6 +37,7 @@
 */
 class MainGameView  : public Component,
                       public Timer,
+                      public KeyListener,
                       public ButtonListener
 {
 public:
@@ -70,7 +71,7 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<TextButton> textButton;
+    ScopedPointer<TextButton> startGameButton;
 
 
     //==============================================================================
