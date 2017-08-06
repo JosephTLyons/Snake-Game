@@ -50,13 +50,13 @@ public:
 
     void timerCallback() override;
     int getCellPixelSize();
+    bool keyPressed (const KeyPress &key, Component *originatingComponent) override;
 
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
     void buttonClicked (Button* buttonThatWasClicked) override;
-    bool keyPressed (const KeyPress& key) override;
 
 
 

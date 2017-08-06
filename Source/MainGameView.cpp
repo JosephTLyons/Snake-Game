@@ -49,6 +49,10 @@ MainGameView::MainGameView ()
 
 
     //[Constructor] You can add your own custom stuff here..
+    
+    addKeyListener(this);
+    setWantsKeyboardFocus(true);
+    
     //[/Constructor]
 }
 
@@ -143,10 +147,12 @@ void MainGameView::buttonClicked (Button* buttonThatWasClicked)
     //[/UserbuttonClicked_Post]
 }
 
-bool MainGameView::keyPressed (const KeyPress& key)
-{
-    //[UserCode_keyPressed] -- Add your code here...
 
+
+//[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+
+bool MainGameView::keyPressed (const KeyPress &key, Component *originatingComponent)
+{
     if (key == KeyPress::leftKey && snake.getDirectionMoving() != left)
     {
         snake.setDirectionMoving(left);
@@ -181,12 +187,7 @@ bool MainGameView::keyPressed (const KeyPress& key)
     repaint();
 
     return true;  // Return true if your handler uses this key event, or false to allow it to be passed-on.
-    //[/UserCode_keyPressed]
 }
-
-
-
-//[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 
 void MainGameView::timerCallback()
 {
@@ -217,9 +218,6 @@ BEGIN_JUCER_METADATA
                  constructorParams="" variableInitialisers="" snapPixels="8" snapActive="1"
                  snapShown="1" overlayOpacity="0.330" fixedSize="1" initialWidth="420"
                  initialHeight="420" lastSelectedTab="0">
-  <METHODS>
-    <METHOD name="keyPressed (const KeyPress&amp; key)"/>
-  </METHODS>
   <BACKGROUND backgroundColour="ffffffff"/>
   <TEXTBUTTON name="startGameButton" id="7734a1b05f416e14" memberName="startGameButton"
               virtualName="" explicitFocusOrder="0" pos="160 90 100 24" buttonText="Start Game"
