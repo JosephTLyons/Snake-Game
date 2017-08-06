@@ -36,7 +36,8 @@
                                                                     //[/Comments]
 */
 class MainGameView  : public Component,
-                      public Timer
+                      public Timer,
+                      public ButtonListener
 {
 public:
     //==============================================================================
@@ -53,6 +54,7 @@ public:
 
     void paint (Graphics& g) override;
     void resized() override;
+    void buttonClicked (Button* buttonThatWasClicked) override;
     bool keyPressed (const KeyPress& key) override;
 
 
@@ -62,10 +64,12 @@ private:
 
     int cellPixelSize;
     Snake snake;
+    float refreshTime;
 
     //[/UserVariables]
 
     //==============================================================================
+    ScopedPointer<TextButton> textButton;
 
 
     //==============================================================================

@@ -32,8 +32,12 @@ MainGameView::MainGameView ()
     //[Constructor_pre] You can add your own custom stuff here..
 
     cellPixelSize = 20;
+    refreshTime = 1000 / 2.5;
 
     //[/Constructor_pre]
+
+    addAndMakeVisible (textButton = new TextButton ("new button"));
+    textButton->addListener (this);
 
 
     //[UserPreSize]
@@ -44,7 +48,7 @@ MainGameView::MainGameView ()
 
     //[Constructor] You can add your own custom stuff here..
 
-    startTimer(1000 / 3);
+    startTimer(refreshTime);
 
     //[/Constructor]
 }
@@ -54,6 +58,7 @@ MainGameView::~MainGameView()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
+    textButton = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -93,13 +98,15 @@ void MainGameView::paint (Graphics& g)
 
     // Paint snake
     g.setColour(Colours::green);
-
+    int x, y;
+    
     for (int i = 0; i < snake.getSnakeCellArray()->size(); i++)
     {
-        int x = (*snake.getSnakeCellArray())[i].x - 1;
-        int y = (*snake.getSnakeCellArray())[i].y - 1;
+        x = (*snake.getSnakeCellArray())[i].x - 1;
+        y = (*snake.getSnakeCellArray())[i].y - 1;
 
-        g.fillRect(x * cellPixelSize, y * cellPixelSize, cellPixelSize, cellPixelSize);
+        g.fillRect((x * cellPixelSize) + 2, (y * cellPixelSize) + 2,
+                   cellPixelSize - 4, cellPixelSize - 4);
     }
 
     //[/UserPaint]
@@ -110,39 +117,61 @@ void MainGameView::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
+    textButton->setBounds (352, 368, 30, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
+}
+
+void MainGameView::buttonClicked (Button* buttonThatWasClicked)
+{
+    //[UserbuttonClicked_Pre]
+    //[/UserbuttonClicked_Pre]
+
+    if (buttonThatWasClicked == textButton)
+    {
+        //[UserButtonCode_textButton] -- add your button handler code here..
+        //[/UserButtonCode_textButton]
+    }
+
+    //[UserbuttonClicked_Post]
+    //[/UserbuttonClicked_Post]
 }
 
 bool MainGameView::keyPressed (const KeyPress& key)
 {
     //[UserCode_keyPressed] -- Add your code here...
 
-    if (key == KeyPress::leftKey)
+    if (key == KeyPress::leftKey && snake.getDirectionMoving() != left)
     {
         snake.setDirectionMoving(left);
         snake.move();
+        
+        // This effectively restarts the timer, which keeps glitches from occuring when changing directions
+        // IE, double space jumps that occured previously after a movement change
+        startTimer(refreshTime);
     }
 
-    else if (key == KeyPress::upKey)
+    else if (key == KeyPress::upKey && snake.getDirectionMoving() != up)
     {
         snake.setDirectionMoving(up);
         snake.move();
+        startTimer(refreshTime);
     }
 
-    else if (key == KeyPress::rightKey)
+    else if (key == KeyPress::rightKey && snake.getDirectionMoving() != right)
     {
         snake.setDirectionMoving(right);
         snake.move();
+        startTimer(refreshTime);
     }
 
-    else if (key == KeyPress::downKey)
+    else if (key == KeyPress::downKey && snake.getDirectionMoving() != down)
     {
         snake.setDirectionMoving(down);
         snake.move();
+        startTimer(refreshTime);
     }
-
-    startTimer(1000 / 3);
+    
     repaint();
 
     return true;  // Return true if your handler uses this key event, or false to allow it to be passed-on.
@@ -186,6 +215,9 @@ BEGIN_JUCER_METADATA
     <METHOD name="keyPressed (const KeyPress&amp; key)"/>
   </METHODS>
   <BACKGROUND backgroundColour="ffffffff"/>
+  <TEXTBUTTON name="new button" id="7734a1b05f416e14" memberName="textButton"
+              virtualName="" explicitFocusOrder="0" pos="352 368 30 24" buttonText="new button"
+              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
