@@ -23,6 +23,11 @@ Snake::Snake()
     snakeCellArray.add(Point<int> (11, 17));
     snakeCellArray.add(Point<int> (11, 18));
     snakeCellArray.add(Point<int> (11, 19));
+    snakeCellArray.add(Point<int> (12, 19));
+    snakeCellArray.add(Point<int> (13, 19));
+    snakeCellArray.add(Point<int> (14, 19));
+    snakeCellArray.add(Point<int> (15, 19));
+    snakeCellArray.add(Point<int> (16, 19));
     
     
     // Start off moving left
