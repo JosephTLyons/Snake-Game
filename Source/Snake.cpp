@@ -12,26 +12,11 @@
 Snake::Snake()
 {
     // Create head
-    Point<int> head(11, 11);
+    head.setXY(11, 11);
     snakeCellArray.add(head);
     
-    snakeCellArray.add(Point<int> (11, 12));
-    snakeCellArray.add(Point<int> (11, 13));
-    snakeCellArray.add(Point<int> (11, 14));
-    snakeCellArray.add(Point<int> (11, 15));
-    snakeCellArray.add(Point<int> (11, 16));
-    snakeCellArray.add(Point<int> (11, 17));
-    snakeCellArray.add(Point<int> (11, 18));
-    snakeCellArray.add(Point<int> (11, 19));
-    snakeCellArray.add(Point<int> (12, 19));
-    snakeCellArray.add(Point<int> (13, 19));
-    snakeCellArray.add(Point<int> (14, 19));
-    snakeCellArray.add(Point<int> (15, 19));
-    snakeCellArray.add(Point<int> (16, 19));
-    
-    
-    // Start off moving left
-    directionMoving = left;
+    // Initial direction of travel
+    directionMoving = up;
 }
 
 Array<Point<int>>* Snake::getSnakeCellArray()
@@ -85,9 +70,28 @@ void Snake::move()
     snakeCellArray.removeLast();
 }
 
-void Snake::addUnit()
+void Snake::grow()
 {
+    //Point<int> lastSnakeUnit =
     
+    snakeCellArray.insert(snakeCellArray.size(), Point <int> (1, 1));
+}
+
+void Snake::resetSnake()
+{
+    snakeCellArray.clear();
+    snakeCellArray.add(head);
+}
+
+bool Snake::didSnakeRunIntoHimself()
+{
+    for (int i = 1; i < snakeCellArray.size(); i++)
+    {
+        if (snakeCellArray[0] == snakeCellArray[i])
+            return true;
+    }
+           
+    return false;
 }
 
 void Snake::setDirectionMoving(const int &input)

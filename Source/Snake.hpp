@@ -15,7 +15,7 @@ class Snake
 {
 private:
     Array<Point<int>> snakeCellArray;
-    
+    Point<int> head;
     Point<int> newPoint;
     
     // Left = 0, Up = 1, Right = 2, Down = 3
@@ -27,7 +27,10 @@ public:
     Array<Point<int>>* getSnakeCellArray();
     void move();
     void grow();
+    void resetSnake();
+    
     bool didSnakeRunIntoHimself();
+    
     void setDirectionMoving(const int &input);
     int getDirectionMoving();
     

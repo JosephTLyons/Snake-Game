@@ -33,7 +33,7 @@ MainGameView::MainGameView ()
 
     cellPixelSize = 20;
     refreshTime = 1000 / 4;
-    gridModeIsOn = true;
+    gridModeIsOn = false;
 
     //[/Constructor_pre]
 
@@ -52,7 +52,7 @@ MainGameView::MainGameView ()
 
     randomCoordinateForApple.setSeed(Time::currentTimeMillis());
     setAppleLocation();
-    
+
     // Set up code to allow arrow key usage
     addKeyListener(this);
     setWantsKeyboardFocus(true);
@@ -76,12 +76,6 @@ MainGameView::~MainGameView()
 void MainGameView::paint (Graphics& g)
 {
     //[UserPrePaint] Add your own custom painting code here..
-
-    
-    
-    if(snake.didSnakeRunIntoHimself())
-        gameOver();
-    
     //[/UserPrePaint]
 
     g.fillAll (Colours::white);
@@ -103,26 +97,24 @@ void MainGameView::paint (Graphics& g)
             g.drawLine(0, i, getWidth(), i);
         }
     }
-    
+
     // Paint apple
     g.setColour(Colours::red);
     g.fillRect((appleLocation.x * cellPixelSize) + 2, (appleLocation.y * cellPixelSize) + 2,
                cellPixelSize - 4, cellPixelSize - 4);
-    
+
     // Paint snake
     g.setColour(Colours::green);
     int x, y;
-    
+
     for (int i = 0; i < snake.getSnakeCellArray()->size(); i++)
     {
         x = (*snake.getSnakeCellArray())[i].x - 1;
         y = (*snake.getSnakeCellArray())[i].y - 1;
-        
+
         g.fillRect((x * cellPixelSize) + 2, (y * cellPixelSize) + 2,
                    cellPixelSize - 4, cellPixelSize - 4);
     }
-
-
     //[/UserPaint]
 }
 
@@ -208,8 +200,18 @@ bool MainGameView::keyPressed (const KeyPress &key, Component *originatingCompon
 void MainGameView::timerCallback()
 {
     snake.move();
-
-    repaint();
+    
+    if(snake.didSnakeRunIntoHimself())
+        gameOver();
+    
+    else
+        repaint();
+    
+    if((*snake.getSnakeCellArray())[0] == appleLocation)
+    {
+        snake.grow();
+        setAppleLocation();
+    }
 }
 
 int MainGameView::getCellPixelSize()
@@ -221,6 +223,7 @@ void MainGameView::gameOver()
 {
     stopTimer();
 
+    // Display "You Lost" label
     youLostLabel = new Label ("You Lost Label", TRANS("You Lost!"));
     youLostLabel->setFont (Font (22.60f, Font::plain).withTypefaceStyle ("Regular"));
     youLostLabel->setJustificationType (Justification::centred);
@@ -231,12 +234,20 @@ void MainGameView::gameOver()
     youLostLabel->setBounds(160, 60, 100, 30);
     youLostLabel->setVisible(true);
 
+    // Display "Start Game" button
     startGameButton->setVisible(true);
+    
+    snake.resetSnake();
 }
 
 void MainGameView::setAppleLocation()
 {
     appleLocation.setXY(randomCoordinateForApple.nextInt(22), randomCoordinateForApple.nextInt(22));
+    
+//    do
+//    {
+//    }
+//    while ((*snake.getSnakeCellArray())[i] !=
 }
 
 //[/MiscUserCode]
@@ -255,7 +266,7 @@ BEGIN_JUCER_METADATA
                  parentClasses="public Component, public Timer, public KeyListener"
                  constructorParams="" variableInitialisers="" snapPixels="8" snapActive="1"
                  snapShown="1" overlayOpacity="0.330" fixedSize="1" initialWidth="420"
-                 initialHeight="420" lastSelectedTab="0">
+                 initialHeight="420" lastSelectedTab="1">
   <BACKGROUND backgroundColour="ffffffff"/>
   <TEXTBUTTON name="startGameButton" id="7734a1b05f416e14" memberName="startGameButton"
               virtualName="" explicitFocusOrder="0" pos="160 90 100 30" buttonText="Start Game"

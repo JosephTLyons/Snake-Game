@@ -12,8 +12,6 @@
             file="Source/MainGameView.cpp"/>
       <FILE id="VHGMDP" name="Snake.hpp" compile="0" resource="0" file="Source/Snake.hpp"/>
       <FILE id="oqoxSw" name="Snake.cpp" compile="1" resource="0" file="Source/Snake.cpp"/>
-      <FILE id="NHjHS8" name="MoveTimer.hpp" compile="0" resource="0" file="Source/MoveTimer.hpp"/>
-      <FILE id="PFRSjv" name="MoveTimer.cpp" compile="1" resource="0" file="Source/MoveTimer.cpp"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
