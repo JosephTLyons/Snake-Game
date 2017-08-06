@@ -22,7 +22,6 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Snake.hpp"
-#include "MoveTimer.hpp"
 //[/Headers]
 
 
@@ -35,7 +34,8 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class MainGameView  : public Component
+class MainGameView  : public Component,
+                      public Timer
 {
 public:
     //==============================================================================
@@ -45,6 +45,7 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
 
+    void timerCallback() override;
     int getCellPixelSize();
 
     //[/UserMethods]
@@ -61,7 +62,6 @@ private:
     enum directionMoving {left, up, right, down};
     int cellPixelSize;
     Snake snake;
-    MoveTimer moveTimer;
 
     //[/UserVariables]
 

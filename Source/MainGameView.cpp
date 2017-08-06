@@ -44,8 +44,7 @@ MainGameView::MainGameView ()
 
     //[Constructor] You can add your own custom stuff here..
 
-    moveTimer.setSnake(snake);
-    moveTimer.startMoveTimer();
+    startTimer(1000 / 3);
 
     //[/Constructor]
 }
@@ -153,6 +152,13 @@ bool MainGameView::keyPressed (const KeyPress& key)
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 
+void MainGameView::timerCallback()
+{
+    snake.move();
+
+    repaint();
+}
+
 int MainGameView::getCellPixelSize()
 {
     return cellPixelSize;
@@ -171,9 +177,10 @@ int MainGameView::getCellPixelSize()
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="MainGameView" componentName=""
-                 parentClasses="public Component" constructorParams="" variableInitialisers=""
-                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="1" initialWidth="420" initialHeight="420" lastSelectedTab="2">
+                 parentClasses="public Component, public Timer" constructorParams=""
+                 variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
+                 overlayOpacity="0.330" fixedSize="1" initialWidth="420" initialHeight="420"
+                 lastSelectedTab="0">
   <METHODS>
     <METHOD name="keyPressed (const KeyPress&amp; key)"/>
   </METHODS>
