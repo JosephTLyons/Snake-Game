@@ -26,7 +26,8 @@ public:
     
     Array<Point<int>>* getSnakeCellArray();
     void move();
-    void addUnit();
+    void grow();
+    bool didSnakeRunIntoHimself();
     void setDirectionMoving(const int &input);
     int getDirectionMoving();
     

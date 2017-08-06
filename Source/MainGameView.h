@@ -51,6 +51,8 @@ public:
     void timerCallback() override;
     int getCellPixelSize();
     bool keyPressed (const KeyPress &key, Component *originatingComponent) override;
+    void gameOver();
+    void setAppleLocation();
 
     //[/UserMethods]
 
@@ -67,6 +69,9 @@ private:
     Snake snake;
     float refreshTime;
     bool gridModeIsOn;
+    ScopedPointer<Label> youLostLabel;
+    Random randomCoordinateForApple;
+    Point<int> appleLocation;
 
     //[/UserVariables]
 

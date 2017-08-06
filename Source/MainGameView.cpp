@@ -33,7 +33,7 @@ MainGameView::MainGameView ()
 
     cellPixelSize = 20;
     refreshTime = 1000 / 4;
-    gridModeIsOn = false;
+    gridModeIsOn = true;
 
     //[/Constructor_pre]
 
@@ -49,10 +49,14 @@ MainGameView::MainGameView ()
 
 
     //[Constructor] You can add your own custom stuff here..
+
+    randomCoordinateForApple.setSeed(Time::currentTimeMillis());
+    setAppleLocation();
     
+    // Set up code to allow arrow key usage
     addKeyListener(this);
     setWantsKeyboardFocus(true);
-    
+
     //[/Constructor]
 }
 
@@ -73,13 +77,11 @@ void MainGameView::paint (Graphics& g)
 {
     //[UserPrePaint] Add your own custom painting code here..
 
-    g.setColour(Colours::black);
-
-    for (int i = cellPixelSize; i < getWidth(); i += cellPixelSize)
-    {
-        g.drawLine(i, 0, i, getHeight());
-    }
-
+    
+    
+    if(snake.didSnakeRunIntoHimself())
+        gameOver();
+    
     //[/UserPrePaint]
 
     g.fillAll (Colours::white);
@@ -101,19 +103,25 @@ void MainGameView::paint (Graphics& g)
             g.drawLine(0, i, getWidth(), i);
         }
     }
-
+    
+    // Paint apple
+    g.setColour(Colours::red);
+    g.fillRect((appleLocation.x * cellPixelSize) + 2, (appleLocation.y * cellPixelSize) + 2,
+               cellPixelSize - 4, cellPixelSize - 4);
+    
     // Paint snake
     g.setColour(Colours::green);
     int x, y;
-
+    
     for (int i = 0; i < snake.getSnakeCellArray()->size(); i++)
     {
         x = (*snake.getSnakeCellArray())[i].x - 1;
         y = (*snake.getSnakeCellArray())[i].y - 1;
-
+        
         g.fillRect((x * cellPixelSize) + 2, (y * cellPixelSize) + 2,
                    cellPixelSize - 4, cellPixelSize - 4);
     }
+
 
     //[/UserPaint]
 }
@@ -123,7 +131,7 @@ void MainGameView::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    startGameButton->setBounds (160, 90, 100, 24);
+    startGameButton->setBounds (160, 90, 100, 30);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -160,13 +168,17 @@ bool MainGameView::keyPressed (const KeyPress &key, Component *originatingCompon
 
         // This effectively restarts the timer, which keeps glitches from occuring when changing directions
         // IE, double space jumps that occured previously after a movement change
+        stopTimer();
         startTimer(refreshTime);
+
     }
 
     else if (key == KeyPress::upKey && snake.getDirectionMoving() != up)
     {
         snake.setDirectionMoving(up);
         snake.move();
+
+        stopTimer();
         startTimer(refreshTime);
     }
 
@@ -174,6 +186,8 @@ bool MainGameView::keyPressed (const KeyPress &key, Component *originatingCompon
     {
         snake.setDirectionMoving(right);
         snake.move();
+
+        stopTimer();
         startTimer(refreshTime);
     }
 
@@ -181,6 +195,8 @@ bool MainGameView::keyPressed (const KeyPress &key, Component *originatingCompon
     {
         snake.setDirectionMoving(down);
         snake.move();
+
+        stopTimer();
         startTimer(refreshTime);
     }
 
@@ -199,6 +215,28 @@ void MainGameView::timerCallback()
 int MainGameView::getCellPixelSize()
 {
     return cellPixelSize;
+}
+
+void MainGameView::gameOver()
+{
+    stopTimer();
+
+    youLostLabel = new Label ("You Lost Label", TRANS("You Lost!"));
+    youLostLabel->setFont (Font (22.60f, Font::plain).withTypefaceStyle ("Regular"));
+    youLostLabel->setJustificationType (Justification::centred);
+    youLostLabel->setEditable (false, false, false);
+    youLostLabel->setColour (Label::textColourId, Colours::black);
+    youLostLabel->setColour (TextEditor::textColourId, Colours::black);
+    youLostLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    youLostLabel->setBounds(160, 60, 100, 30);
+    youLostLabel->setVisible(true);
+
+    startGameButton->setVisible(true);
+}
+
+void MainGameView::setAppleLocation()
+{
+    appleLocation.setXY(randomCoordinateForApple.nextInt(22), randomCoordinateForApple.nextInt(22));
 }
 
 //[/MiscUserCode]
@@ -220,7 +258,7 @@ BEGIN_JUCER_METADATA
                  initialHeight="420" lastSelectedTab="0">
   <BACKGROUND backgroundColour="ffffffff"/>
   <TEXTBUTTON name="startGameButton" id="7734a1b05f416e14" memberName="startGameButton"
-              virtualName="" explicitFocusOrder="0" pos="160 90 100 24" buttonText="Start Game"
+              virtualName="" explicitFocusOrder="0" pos="160 90 100 30" buttonText="Start Game"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
