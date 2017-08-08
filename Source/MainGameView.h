@@ -73,10 +73,14 @@ private:
     Random randomCoordinateForApple;
     Point<int> appleLocation;
 
+    // Used for painting snake and apple locations
+    int xCoordinate, yCoordinate;
+
     //[/UserVariables]
 
     //==============================================================================
     ScopedPointer<TextButton> startGameButton;
+    ScopedPointer<Label> lengthLabel;
 
 
     //==============================================================================

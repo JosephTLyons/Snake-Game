@@ -72,9 +72,9 @@ void Snake::move()
 
 void Snake::grow()
 {
-    //Point<int> lastSnakeUnit =
+    Point<int> lastSnakeUnit(snakeCellArray.getLast().x, snakeCellArray.getLast().y);
     
-    snakeCellArray.insert(snakeCellArray.size(), Point <int> (1, 1));
+    snakeCellArray.insert(snakeCellArray.size(), lastSnakeUnit);
 }
 
 void Snake::resetSnake()

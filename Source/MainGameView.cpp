@@ -33,13 +33,21 @@ MainGameView::MainGameView ()
 
     cellPixelSize = 20;
     refreshTime = 1000 / 4;
-    gridModeIsOn = false;
+    gridModeIsOn = true;
 
     //[/Constructor_pre]
 
     addAndMakeVisible (startGameButton = new TextButton ("startGameButton"));
     startGameButton->setButtonText (TRANS("Start Game"));
     startGameButton->addListener (this);
+
+    addAndMakeVisible (lengthLabel = new Label ("lengthLabel",
+                                                TRANS("label text")));
+    lengthLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    lengthLabel->setJustificationType (Justification::centredLeft);
+    lengthLabel->setEditable (false, false, false);
+    lengthLabel->setColour (TextEditor::textColourId, Colours::black);
+    lengthLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
 
     //[UserPreSize]
@@ -66,6 +74,7 @@ MainGameView::~MainGameView()
     //[/Destructor_pre]
 
     startGameButton = nullptr;
+    lengthLabel = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -99,20 +108,22 @@ void MainGameView::paint (Graphics& g)
     }
 
     // Paint apple
+    xCoordinate = appleLocation.x - 1;
+    yCoordinate = appleLocation.y - 1;
+
     g.setColour(Colours::red);
-    g.fillRect((appleLocation.x * cellPixelSize) + 2, (appleLocation.y * cellPixelSize) + 2,
-               cellPixelSize - 4, cellPixelSize - 4);
+    g.fillRect((xCoordinate * cellPixelSize) + 2, (yCoordinate * cellPixelSize) + 2,
+                cellPixelSize - 4, cellPixelSize - 4);
 
     // Paint snake
     g.setColour(Colours::green);
-    int x, y;
 
     for (int i = 0; i < snake.getSnakeCellArray()->size(); i++)
     {
-        x = (*snake.getSnakeCellArray())[i].x - 1;
-        y = (*snake.getSnakeCellArray())[i].y - 1;
+        xCoordinate = (*snake.getSnakeCellArray())[i].x - 1;
+        yCoordinate = (*snake.getSnakeCellArray())[i].y - 1;
 
-        g.fillRect((x * cellPixelSize) + 2, (y * cellPixelSize) + 2,
+        g.fillRect((xCoordinate * cellPixelSize) + 2, (yCoordinate * cellPixelSize) + 2,
                    cellPixelSize - 4, cellPixelSize - 4);
     }
     //[/UserPaint]
@@ -124,6 +135,7 @@ void MainGameView::resized()
     //[/UserPreResize]
 
     startGameButton->setBounds (160, 90, 100, 30);
+    lengthLabel->setBounds (18, 184, 18, 18);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -200,13 +212,13 @@ bool MainGameView::keyPressed (const KeyPress &key, Component *originatingCompon
 void MainGameView::timerCallback()
 {
     snake.move();
-    
+
     if(snake.didSnakeRunIntoHimself())
         gameOver();
-    
+
     else
         repaint();
-    
+
     if((*snake.getSnakeCellArray())[0] == appleLocation)
     {
         snake.grow();
@@ -236,18 +248,13 @@ void MainGameView::gameOver()
 
     // Display "Start Game" button
     startGameButton->setVisible(true);
-    
+
     snake.resetSnake();
 }
 
 void MainGameView::setAppleLocation()
 {
     appleLocation.setXY(randomCoordinateForApple.nextInt(22), randomCoordinateForApple.nextInt(22));
-    
-//    do
-//    {
-//    }
-//    while ((*snake.getSnakeCellArray())[i] !=
 }
 
 //[/MiscUserCode]
@@ -271,6 +278,11 @@ BEGIN_JUCER_METADATA
   <TEXTBUTTON name="startGameButton" id="7734a1b05f416e14" memberName="startGameButton"
               virtualName="" explicitFocusOrder="0" pos="160 90 100 30" buttonText="Start Game"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+  <LABEL name="lengthLabel" id="fb3bcc7d93fc281" memberName="lengthLabel"
+         virtualName="" explicitFocusOrder="0" pos="18 184 18 18" edTextCol="ff000000"
+         edBkgCol="0" labelText="label text" editableSingleClick="0" editableDoubleClick="0"
+         focusDiscardsChanges="0" fontname="Default font" fontsize="15"
+         kerning="0" bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
