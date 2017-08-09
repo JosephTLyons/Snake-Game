@@ -70,7 +70,7 @@ private:
     float refreshTime;
     bool gridModeIsOn;
     ScopedPointer<Label> youLostLabel;
-    
+
     Random randomNumberGenerator;
     Point<int> appleLocation;
     unsigned int applesConstumed;
@@ -84,7 +84,6 @@ private:
 
     //==============================================================================
     ScopedPointer<TextButton> startGameButton;
-    ScopedPointer<Label> snakeLengthLabel;
 
 
     //==============================================================================
