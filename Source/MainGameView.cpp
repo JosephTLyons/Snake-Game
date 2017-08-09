@@ -287,7 +287,8 @@ void MainGameView::gameOver()
 
 void MainGameView::setAppleLocation()
 {
-    appleLocation.setXY(randomNumberGenerator.nextInt(22), randomNumberGenerator.nextInt(22));
+    appleLocation.setXY(randomNumberGenerator.nextInt(21) + 1,
+                        randomNumberGenerator.nextInt(21) + 1);
 }
 
 //[/MiscUserCode]
