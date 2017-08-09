@@ -69,7 +69,6 @@ private:
     Snake snake;
     float refreshTime;
     bool gridModeIsOn;
-    ScopedPointer<Label> youLostLabel;
 
     Random randomNumberGenerator;
     Point<int> appleLocation;
@@ -77,7 +76,7 @@ private:
     unsigned int poopCountDown;
     Array<Point<int>> poopLocationArray;
 
-    // Used for painting snake and apple locations
+    // Used for painting snake, apple, and poop locations
     int xCoordinate, yCoordinate;
 
     //[/UserVariables]

@@ -59,8 +59,6 @@ MainGameView::MainGameView ()
     addKeyListener(this);
     setWantsKeyboardFocus(true);
     
-    addAndMakeVisible (youLostLabel = new Label ("You lost!"));
-
     //[/Constructor]
 }
 
@@ -73,9 +71,6 @@ MainGameView::~MainGameView()
 
 
     //[Destructor]. You can add your own custom destruction code here..
-    
-    youLostLabel = nullptr;
-    
     //[/Destructor]
 }
 
@@ -146,8 +141,6 @@ void MainGameView::resized()
 
     startGameButton->setBounds (160, 90, 100, 30);
     //[UserResized] Add your own custom resize handling here..
-    youLostLabel->setBounds(160, 60, 100, 30);
-    
     //[/UserResized]
 }
 
@@ -255,17 +248,6 @@ int MainGameView::getCellPixelSize()
 void MainGameView::gameOver()
 {
     stopTimer();
-
-    // Display "You Lost" label
-    youLostLabel = new Label ("You Lost Label", TRANS("You Lost!"));
-    youLostLabel->setFont (Font (22.60f, Font::plain).withTypefaceStyle ("Regular"));
-    youLostLabel->setJustificationType (Justification::centred);
-    youLostLabel->setEditable (false, false, false);
-    youLostLabel->setColour (Label::textColourId, Colours::black);
-    youLostLabel->setColour (TextEditor::textColourId, Colours::black);
-    youLostLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-    youLostLabel->setBounds(160, 60, 100, 30);
-    youLostLabel->setVisible(true);
 
     // Display "Start Game" button
     startGameButton->setVisible(true);
