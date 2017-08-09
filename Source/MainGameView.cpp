@@ -35,7 +35,7 @@ MainGameView::MainGameView ()
     refreshTime = 1000 / 4;
     gridModeIsOn = true;
     applesConstumed = 0;
-    poopCountDown = randomNumberGenerator.nextInt(6) + 5;;
+    poopCountDown = randomNumberGenerator.nextInt(3) + 3;;
 
     //[/Constructor_pre]
 
@@ -248,10 +248,9 @@ void MainGameView::timerCallback()
         if(--poopCountDown == 0)
         {
             poopLocationArray.add(snake.getSnakeCellArray()->getLast());
-            
-            poopCountDown = randomNumberGenerator.nextInt(6) + 5;;
+            snake.getSnakeCellArray()->removeLast();
+            poopCountDown = randomNumberGenerator.nextInt(3) + 3;;
         }
-        
     }
     
     snakeLengthLabel->setText((String) snake.getSnakeCellArray()->size(), dontSendNotification);
