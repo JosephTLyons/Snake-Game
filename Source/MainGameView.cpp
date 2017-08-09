@@ -31,17 +31,26 @@ MainGameView::MainGameView ()
 {
     //[Constructor_pre] You can add your own custom stuff here..
 
-    cellPixelSize = 20;
-    refreshTime = 1000 / 4;
-    gridModeIsOn = true;
+    cellPixelSize   = 20;
+    refreshTime     = 1000 / 4;
+    gridModeIsOn    = false;
     applesConstumed = 0;
-    poopCountDown = randomNumberGenerator.nextInt(3) + 3;;
+    poopCountDown   = randomNumberGenerator.nextInt(3) + 3;;
 
     //[/Constructor_pre]
 
     addAndMakeVisible (startGameButton = new TextButton ("startGameButton"));
     startGameButton->setButtonText (TRANS("Start Game"));
     startGameButton->addListener (this);
+
+    addAndMakeVisible (youLostLabel = new Label ("youLostLabel",
+                                                 String()));
+    youLostLabel->setFont (Font (23.80f, Font::plain).withTypefaceStyle ("Regular"));
+    youLostLabel->setJustificationType (Justification::centred);
+    youLostLabel->setEditable (false, false, false);
+    youLostLabel->setColour (Label::textColourId, Colours::black);
+    youLostLabel->setColour (TextEditor::textColourId, Colours::black);
+    youLostLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
 
     //[UserPreSize]
@@ -58,7 +67,7 @@ MainGameView::MainGameView ()
     // Set up code to allow arrow key usage
     addKeyListener(this);
     setWantsKeyboardFocus(true);
-    
+
     //[/Constructor]
 }
 
@@ -68,6 +77,7 @@ MainGameView::~MainGameView()
     //[/Destructor_pre]
 
     startGameButton = nullptr;
+    youLostLabel = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -140,6 +150,7 @@ void MainGameView::resized()
     //[/UserPreResize]
 
     startGameButton->setBounds (160, 90, 100, 30);
+    youLostLabel->setBounds (160, 60, 100, 30);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -155,6 +166,7 @@ void MainGameView::buttonClicked (Button* buttonThatWasClicked)
 
         startTimer(refreshTime);
         startGameButton->setVisible(false);
+        youLostLabel->setText("", dontSendNotification);
 
         //[/UserButtonCode_startGameButton]
     }
@@ -252,6 +264,8 @@ void MainGameView::gameOver()
     // Display "Start Game" button
     startGameButton->setVisible(true);
 
+    youLostLabel->setText("You Lost!", dontSendNotification);
+
     snake.resetSnake();
 }
 
@@ -277,11 +291,17 @@ BEGIN_JUCER_METADATA
                  parentClasses="public Component, public Timer, public KeyListener"
                  constructorParams="" variableInitialisers="" snapPixels="8" snapActive="1"
                  snapShown="1" overlayOpacity="0.330" fixedSize="1" initialWidth="420"
-                 initialHeight="420" lastSelectedTab="1">
+                 initialHeight="420" lastSelectedTab="0">
   <BACKGROUND backgroundColour="ffffffff"/>
   <TEXTBUTTON name="startGameButton" id="7734a1b05f416e14" memberName="startGameButton"
               virtualName="" explicitFocusOrder="0" pos="160 90 100 30" buttonText="Start Game"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+  <LABEL name="youLostLabel" id="a545660eb1a3114" memberName="youLostLabel"
+         virtualName="" explicitFocusOrder="0" pos="160 60 100 30" textCol="ff000000"
+         edTextCol="ff000000" edBkgCol="0" labelText="" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="23.800000000000000711" kerning="0" bold="0" italic="0"
+         justification="36"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
