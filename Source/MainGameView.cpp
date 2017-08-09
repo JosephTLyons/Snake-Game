@@ -58,6 +58,8 @@ MainGameView::MainGameView ()
     // Set up code to allow arrow key usage
     addKeyListener(this);
     setWantsKeyboardFocus(true);
+    
+    addAndMakeVisible (youLostLabel = new Label ("You lost!"));
 
     //[/Constructor]
 }
@@ -71,6 +73,9 @@ MainGameView::~MainGameView()
 
 
     //[Destructor]. You can add your own custom destruction code here..
+    
+    youLostLabel = nullptr;
+    
     //[/Destructor]
 }
 
@@ -141,6 +146,8 @@ void MainGameView::resized()
 
     startGameButton->setBounds (160, 90, 100, 30);
     //[UserResized] Add your own custom resize handling here..
+    youLostLabel->setBounds(160, 60, 100, 30);
+    
     //[/UserResized]
 }
 
