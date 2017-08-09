@@ -34,6 +34,8 @@ MainGameView::MainGameView ()
     cellPixelSize = 20;
     refreshTime = 1000 / 4;
     gridModeIsOn = true;
+    applesConstumed = 0;
+    poopCountDown = randomNumberGenerator.nextInt(6) + 5;;
 
     //[/Constructor_pre]
 
@@ -41,13 +43,14 @@ MainGameView::MainGameView ()
     startGameButton->setButtonText (TRANS("Start Game"));
     startGameButton->addListener (this);
 
-    addAndMakeVisible (lengthLabel = new Label ("lengthLabel",
-                                                TRANS("label text")));
-    lengthLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-    lengthLabel->setJustificationType (Justification::centredLeft);
-    lengthLabel->setEditable (false, false, false);
-    lengthLabel->setColour (TextEditor::textColourId, Colours::black);
-    lengthLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    addAndMakeVisible (snakeLengthLabel = new Label ("snakeLengthLabel",
+                                                     TRANS("9\n")));
+    snakeLengthLabel->setFont (Font (21.30f, Font::plain).withTypefaceStyle ("Bold"));
+    snakeLengthLabel->setJustificationType (Justification::centred);
+    snakeLengthLabel->setEditable (false, false, false);
+    snakeLengthLabel->setColour (Label::textColourId, Colours::white);
+    snakeLengthLabel->setColour (TextEditor::textColourId, Colours::black);
+    snakeLengthLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
 
     //[UserPreSize]
@@ -58,12 +61,15 @@ MainGameView::MainGameView ()
 
     //[Constructor] You can add your own custom stuff here..
 
-    randomCoordinateForApple.setSeed(Time::currentTimeMillis());
+    randomNumberGenerator.setSeed(Time::currentTimeMillis());
     setAppleLocation();
 
     // Set up code to allow arrow key usage
     addKeyListener(this);
     setWantsKeyboardFocus(true);
+    
+    // Set up initial snake length number
+    snakeLengthLabel->setText((String) snake.getSnakeCellArray()->size(), dontSendNotification);
 
     //[/Constructor]
 }
@@ -74,7 +80,7 @@ MainGameView::~MainGameView()
     //[/Destructor_pre]
 
     startGameButton = nullptr;
-    lengthLabel = nullptr;
+    snakeLengthLabel = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -126,6 +132,18 @@ void MainGameView::paint (Graphics& g)
         g.fillRect((xCoordinate * cellPixelSize) + 2, (yCoordinate * cellPixelSize) + 2,
                    cellPixelSize - 4, cellPixelSize - 4);
     }
+    
+    // Paint poop
+    for (int i = 0; i < poopLocationArray.size(); i++)
+    {
+        xCoordinate = poopLocationArray[i].x - 1;
+        yCoordinate = poopLocationArray[i].y - 1;
+        
+        g.setColour(Colours::brown);
+        g.fillRect((xCoordinate * cellPixelSize) + 2, (yCoordinate * cellPixelSize) + 2,
+                   cellPixelSize - 4, cellPixelSize - 4);
+    }
+    
     //[/UserPaint]
 }
 
@@ -135,7 +153,7 @@ void MainGameView::resized()
     //[/UserPreResize]
 
     startGameButton->setBounds (160, 90, 100, 30);
-    lengthLabel->setBounds (18, 184, 18, 18);
+    snakeLengthLabel->setBounds (201, 201, 18, 18);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -215,6 +233,9 @@ void MainGameView::timerCallback()
 
     if(snake.didSnakeRunIntoHimself())
         gameOver();
+    
+//    else if(/* didSnakeRunIntoPoop */)
+//       gameOver();
 
     else
         repaint();
@@ -223,7 +244,19 @@ void MainGameView::timerCallback()
     {
         snake.grow();
         setAppleLocation();
+        
+        if(--poopCountDown == 0)
+        {
+            poopLocationArray.add(snake.getSnakeCellArray()->getLast());
+            
+            poopCountDown = randomNumberGenerator.nextInt(6) + 5;;
+        }
+        
     }
+    
+    snakeLengthLabel->setText((String) snake.getSnakeCellArray()->size(), dontSendNotification);
+    snakeLengthLabel->setBounds(snake.getSnakeCellArray()->getLast().x - 1,
+                                snake.getSnakeCellArray()->getLast().y - 1, 18, 18);
 }
 
 int MainGameView::getCellPixelSize()
@@ -254,7 +287,7 @@ void MainGameView::gameOver()
 
 void MainGameView::setAppleLocation()
 {
-    appleLocation.setXY(randomCoordinateForApple.nextInt(22), randomCoordinateForApple.nextInt(22));
+    appleLocation.setXY(randomNumberGenerator.nextInt(22), randomNumberGenerator.nextInt(22));
 }
 
 //[/MiscUserCode]
@@ -278,11 +311,12 @@ BEGIN_JUCER_METADATA
   <TEXTBUTTON name="startGameButton" id="7734a1b05f416e14" memberName="startGameButton"
               virtualName="" explicitFocusOrder="0" pos="160 90 100 30" buttonText="Start Game"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
-  <LABEL name="lengthLabel" id="fb3bcc7d93fc281" memberName="lengthLabel"
-         virtualName="" explicitFocusOrder="0" pos="18 184 18 18" edTextCol="ff000000"
-         edBkgCol="0" labelText="label text" editableSingleClick="0" editableDoubleClick="0"
-         focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         kerning="0" bold="0" italic="0" justification="33"/>
+  <LABEL name="snakeLengthLabel" id="cb6d923afe1d3121" memberName="snakeLengthLabel"
+         virtualName="" explicitFocusOrder="0" pos="201 201 18 18" textCol="ffffffff"
+         edTextCol="ff000000" edBkgCol="0" labelText="9&#10;" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="21.300000000000000711" kerning="0" bold="1" italic="0"
+         justification="36" typefaceStyle="Bold"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
