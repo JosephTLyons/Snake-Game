@@ -24,8 +24,10 @@ Array<Point<int>>* Snake::getSnakeCellArray()
     return &snakeCellArray;
 }
 
-void Snake::move()
+void Snake::move(const int &direction)
 {
+    directionMoving = direction;
+    
     if(directionMoving == left)
     {
         newPoint.setXY(snakeCellArray[0].getX() - 1, snakeCellArray[0].getY());
@@ -92,11 +94,6 @@ bool Snake::didSnakeRunIntoHimself()
     }
            
     return false;
-}
-
-void Snake::setDirectionMoving(const int &input)
-{
-    directionMoving = input;
 }
 
 

@@ -183,51 +183,48 @@ bool MainGameView::keyPressed (const KeyPress &key, Component *originatingCompon
 {
     if (key == KeyPress::leftKey && snake.getDirectionMoving() != left)
     {
-        snake.setDirectionMoving(left);
-        snake.move();
+        stopTimer();
+        snake.move(left);
 
         // This effectively restarts the timer, which keeps glitches from occuring when changing directions
         // IE, double space jumps that occured previously after a movement change
-        stopTimer();
+        repaint();
         startTimer(refreshTime);
-
     }
 
     else if (key == KeyPress::upKey && snake.getDirectionMoving() != up)
     {
-        snake.setDirectionMoving(up);
-        snake.move();
-
         stopTimer();
+        snake.move(up);
+
+        repaint();
         startTimer(refreshTime);
     }
 
     else if (key == KeyPress::rightKey && snake.getDirectionMoving() != right)
     {
-        snake.setDirectionMoving(right);
-        snake.move();
-
         stopTimer();
+        snake.move(right);
+
+        repaint();
         startTimer(refreshTime);
     }
 
     else if (key == KeyPress::downKey && snake.getDirectionMoving() != down)
     {
-        snake.setDirectionMoving(down);
-        snake.move();
-
         stopTimer();
+        snake.move(down);
+
+        repaint();
         startTimer(refreshTime);
     }
-
-    repaint();
 
     return true;  // Return true if your handler uses this key event, or false to allow it to be passed-on.
 }
 
 void MainGameView::timerCallback()
 {
-    snake.move();
+    snake.move(snake.getDirectionMoving());
 
     if(snake.didSnakeRunIntoHimself())
         gameOver();
