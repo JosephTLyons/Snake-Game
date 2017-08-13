@@ -31,7 +31,7 @@ public:
     
     bool didSnakeRunIntoHimself();
     
-    int getDirectionMoving();
+    int getDirectionMoving() const;
     
 };
 

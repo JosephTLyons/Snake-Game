@@ -97,7 +97,7 @@ bool Snake::didSnakeRunIntoHimself()
 }
 
 
-int Snake::getDirectionMoving()
+int Snake::getDirectionMoving() const
 {
     return directionMoving;
 }
